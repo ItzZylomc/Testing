@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.11-SNAPSHOT'
+	id 'fabric-loom' version '1.15.0-alpha.16'
 	id 'maven-publish'
 }
 
@@ -29,28 +29,4 @@ dependencies {
 }
 
 // Requires Java 21 both to compile and to run - matches Minecraft 1.21.11's
-// own toolchain requirement.
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
-	withSourcesJar()
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-tasks.jar {
-	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}" }
-	}
-}
+//
