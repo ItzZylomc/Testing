@@ -17,17 +17,12 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Make gradlew executable
-        working-directory: hotbarmod
-        run: chmod +x ./gradlew || true
-
-      - name: Generate Gradle wrapper (if missing)
-        working-directory: hotbarmod
-        run: gradle wrapper --gradle-version 8.10 || true
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build the mod
         working-directory: hotbarmod
-        run: ./gradlew build --stacktrace
+        run: gradle build --stacktrace
 
       - name: Upload the built jar
         uses: actions/upload-artifact@v4
