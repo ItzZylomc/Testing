@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.hotbarmod.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"HotbarScaleMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
