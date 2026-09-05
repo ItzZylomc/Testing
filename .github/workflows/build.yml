@@ -1,0 +1,36 @@
+name: Build Mod Jar
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Make gradlew executable
+        working-directory: hotbarmod
+        run: chmod +x ./gradlew || true
+
+      - name: Generate Gradle wrapper (if missing)
+        working-directory: hotbarmod
+        run: gradle wrapper --gradle-version 8.10 || true
+
+      - name: Build the mod
+        working-directory: hotbarmod
+        run: ./gradlew build --stacktrace
+
+      - name: Upload the built jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: hotbarmod-jar
+          path: hotbarmod/build/libs/*.jar
